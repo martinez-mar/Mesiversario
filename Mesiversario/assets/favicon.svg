@@ -1,0 +1,5 @@
+<svg width="500" height="500" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#f0f0f0"/>
+  <text x="50%" y="50%" font-family="Arial, sans-serif" font-size="24" fill="#999" text-anchor="middle" dy=".3em">Tu Foto Aquí</text>
+  <path d="M250 350 C 150 250 150 150 250 150 C 350 150 350 250 250 350" fill="none" stroke="#ddd" stroke-width="5"/>
+</svg>
