@@ -1,182 +1,115 @@
-
-// ============================================
-// ⚙️ CONFIGURACIÓN DE LA PLANTILLA
-// ============================================
-// 
-// 📝 INSTRUCCIONES:
-// Este archivo controla TODO el contenido de tu sitio web de aniversario.
-// Solo necesitas editar los textos, fechas y rutas de archivos aquí.
-// NO necesitas tocar ningún otro archivo del proyecto.
-//
-// 💡 CONSEJOS:
-// - Los textos entre comillas ("") pueden contener emojis
-// - Las fechas deben estar en formato: "YYYY-MM-DD" (Año-Mes-Día)
-// - Las rutas de archivos deben apuntar a la carpeta assets/
-// - Puedes usar <br> para saltos de línea en los textos
-// ============================================
-
 const config = {
-    // ============================================
-    // 1️⃣ CONFIGURACIÓN GENERAL
-    // ============================================
-    // Este título aparecerá en la pestaña del navegador
-    pageTitle: "Nuestro Aniversario ❤️",
-    // Icono que aparece en la pestaña (puede ser .svg, .png, .ico)
-    // Asegúrate de poner el archivo en la carpeta assets/
-    favicon: "assets/favicon.svg",
+    pageTitle: "Feliz mesiversario ❤️",
+    favicon: "assets/cabezon.jpeg",
 
-    // ============================================
-    // 2️⃣ MÚSICA DE FONDO
-    // ============================================
     music: {
-        // Ruta de tu canción favorita (debe estar en la carpeta assets/)
-        // Formatos soportados: .mp3, .wav, .ogg
-        path: "", // 🔇 Déjalo vacío si no tienes música aún
-
-        // Volumen de la música (0.0 = silencio, 1.0 = máximo)
+        path: "thismagic.mp3",
         volume: 0.3,
-
-        // ¿Reproducir automáticamente? (true = sí, false = no)
         autoPlay: true
     },
 
-    // ============================================
-    // 3️⃣ PANTALLA DE CARGA
-    // ============================================
     loading: {
         // Mensaje que aparece en la pantalla de inicio
-        message: "Algo especial te espera...",
+        message: "¿Preparado?... tu novia es genial B)",
 
         // Texto del botón para comenzar
-        buttonText: "Comenzar ✨",
+        buttonText: "iendooooo",
 
         // Texto de ayuda que aparece arriba del botón
-        clickHint: "Haz clic para comenzar"
+        clickHint: "Pushale aki"
     },
 
-    // ============================================
-    // 4️⃣ SECCIÓN HERO (PANTALLA PRINCIPAL)
-    // ============================================
     hero: {
         // Título principal que aparece al inicio
-        title: "Nuestra historia de amor...",
+        title: "Nuestra historia juntos...",
 
         // ⚠️ IMPORTANTE: Fecha de inicio de tu relación (YYYY-MM-DD)
         // El contador calculará automáticamente el tiempo transcurrido
         // Ejemplo: "2024-02-14" para el 14 de febrero de 2024
-        startDate: "2024-01-01",
+        startDate: "2023-12-13",
 
         // Texto que aparece después del contador
-        finalText: "¡Y seguimos escribiendo nuestra historia!",
+        finalText: "Aquí andamos pq aquí es en donde nos puso la vidaaaaaaaa uwu",
 
         // Texto del indicador de scroll
-        scrollText: "Desliza para continuar"
+        scrollText: "Jalele pa ver más 7u7"
     },
 
-    // ============================================
-    // 5️⃣ LÍNEA DE TIEMPO (TU HISTORIA)
-    // ============================================
-    // Aquí cuentas tu historia en eventos cronológicos
-    // Puedes agregar o eliminar eventos según necesites
     timeline: [
         // ========== EVENTO 1 ==========
         {
             // Título del evento (puedes usar emojis)
-            title: "🌟 El primer encuentro",
+            title: "La perfección hecha hombre 😍", ",
 
             // Descripción del evento (puedes usar HTML como <br> para saltos de línea)
-            content: `Escribe aquí cómo se conocieron...<br>Puedes agregar varios párrafos.`,
-
-            // Imágenes del evento (opcional)
-            // Puedes agregar varias imágenes separadas por comas
+            content: `Empecemos recordándote lo mucho que me encantas, no solo físicamente, pero diosssss, mira a semejante rubioooo OwO`,
+           
             images: [
-                "assets/placeholder.svg",
-                "assets/placeholder.svg"
+                "assets/dorado.jpeg",
+                "assets/parqueabrazo.jpeg",
             ],
 
-            // Videos del evento (opcional)
-            // Descomenta la siguiente línea si quieres agregar videos
-            // videos: ["assets/video1.mp4"],
-
-            // Pie de foto o comentario adicional
-            footer: "Ese día cambió todo..."
+            footer: "Soy la mujer más afortunada del mundo por tenerte a mi lado ❤️u❤️"
         },
 
-        // ========== EVENTO 2 ==========
         {
-            title: "💬 La primera conversación",
-            content: `Describe ese primer mensaje o llamada que cambió todo...`,
-            images: ["assets/placeholder.svg"],
-            footer: "Desde ese momento, no dejamos de hablar"
+            title: "Soy tan feliz a tu lado 🥰",
+            content: `Complementas mis días y me divierto mucho contigo, no puedo esperar por el día en que ya no tengamos que separarnos :,)`,
+            images: ["assets/luzroja2.jpeg"],
+            images: ["assets/luzroja1.jpeg"],
+            images: ["assets/luzroja3.jpeg"],
+            images: ["assets/plaza2.jpeg"],
+            footer: "Cada momento contigo es un tesoro que guardo en mi mente, en mi corazón ❤️"
         },
 
         // ========== EVENTO 3 ==========
         {
-            title: "❤️ La primera cita",
-            content: `Cuenta los detalles de su primera cita...<br>¿Dónde fueron? ¿Qué hicieron?`,
-            images: ["assets/placeholder.svg"],
-            footer: "Nervios, risas y mariposas en el estómago"
+            title: "Gracias por tantas aventuras y momentos increíbles, y por carrearte cuando lo necesitas jsaajsja :3",
+            content: `Bueno, tengo que admitir que el proplayer eres tú<3 me excita como juegas, digo, me encanta jsjsjs, eres muy sexy haciendo cualquier cosa 7u7`,
+            images: ["assets/ajedrez.jpeg"],
+            images: ["assets/ajedrez3.jpeg"],
+            images: ["assets/abasho.jpeg"],
+            images: ["assets/ajedrez2.jpeg"],
+            footer: "Nervios, risas y mariposas en el estómago, miedo, envidia, todo eso que yo te provoco ;) ntc JAJA tú tambn a mi pa que no llores :3"
         },
-
         // ========== EVENTO 4 ==========
         {
-            title: "🎉 Oficialmente juntos",
-            content: `El día en que decidieron formalizar su relación...`,
-            images: ["assets/placeholder.svg"],
-
-            // Campo "extra" para agregar más contenido al final del evento
-            extra: `<br>Y desde entonces, cada día es una nueva aventura juntos.`
+            title: "Gracias por procurarme, por hacerme sentir amada",
+            content: `De verdad que qué bonito fue coincidir contigo y por fin aprender lo que es el amor, que te aman y que eres suficiente, gracias por salvarme s2`,
+            images: ["assets/baño.jpeg"],
+            images: ["assets/casasi.jpeg"],
+            images: ["assets/casasi2.jpeg"],
+            footer: "Gracias por estos 30 meses damsito lindo, no hay dinero ni berries pero hay manitas programadoras y sin envidias paros jajajasju❤️"
         },
 
-        // 💡 CONSEJO: Puedes copiar y pegar este bloque para agregar más eventos:
-        /*
-        {
-            title: "🎈 Título del evento",
-            content: `Descripción del evento...`,
-            images: ["assets/placeholder.svg"],
-            footer: "Comentario adicional"
-        },
-        */
-    ],
-
-    // ============================================
-    // 6️⃣ GALERÍA DE FOTOS
-    // ============================================
     gallery: {
         // Título de la sección de galería
-        title: "Nuestros momentos favoritos",
+        title: "Recuerdos más recientes de navidad, mi visita favorita nwn",
 
         // Lista de fotos para la galería
-        // Agrega tantas como quieras, separadas por comas
         images: [
-            "assets/placeholder.svg",
-            "assets/placeholder.svg",
-            "assets/placeholder.svg",
-            "assets/placeholder.svg",
-            "assets/placeholder.svg",
-            "assets/placeholder.svg",
-            "assets/placeholder.svg",
-            "assets/placeholder.svg",
-            "assets/placeholder.svg",
-            "assets/placeholder.svg",
-            "assets/placeholder.svg",
-            "assets/placeholder.svg"
-            // Agrega más fotos aquí...
+            "assets/gloss.jpeg",
+            "assets/luces.jpeg",
+            "assets/luces2.jpeg",
+            "assets/luces3.jpeg",
+            "assets/oxxo.jpeg",
+            "assets/parquelejos.jpeg",
+            "assets/plaza.jpeg",
+            "assets/plaza3.jpeg",
+            "assets/plaza4.jpeg",
+            "assets/plazabeso.jpeg",
+            "assets/plazamirada.jpeg",
+            "assets/suegra.jpeg"
+            "assets/sanignacio.jpeg"
+            "assets/walmart.jpeg"
+            "assets/walmart2.jpeg"
+            "assets/cabezon.jpeg"
         ]
     },
 
-    // ============================================
-    // 7️⃣ MENSAJE FINAL
-    // ============================================
     finalMessage: {
         // Mensaje de cierre (puedes usar <br> para saltos de línea)
-        content: "Gracias por ser parte de mi vida ❤️<br>Te amo más cada día..."
+        content: "Gracias por ser parte de mi vida ❤️<br>Gracias por estos 30 increibles meses :3 <br>Gracias por tenerme envidia para hacerme más fuerte XD <br>Te amo infinitamente mi guerito lindo, amor de mi vida, mi todo S2"
     }
 };
 
-// ============================================
-// ✅ ¡LISTO!
-// ============================================
-// Guarda este archivo y recarga tu navegador para ver los cambios.
-// Recuerda colocar tus fotos, videos y música en la carpeta assets/
-// ============================================
