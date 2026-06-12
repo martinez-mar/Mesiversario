@@ -1,13 +1,15 @@
+// mesiversario 30, aprendiendo github y progra a la vez xd
+//Titulo inicial e icono de la app
 const config = {
     pageTitle: "Feliz mesiversario ❤️",
     favicon: "assets/cabezon.jpeg",
-
+//Musica de fondo
     music: {
         path: "thismagic.mp3",
         volume: 0.3,
         autoPlay: true
     },
-
+//Mensajes personalizados
     loading: {
         // Mensaje que aparece en la pantalla de inicio
         message: "¿Preparado?... tu novia es genial B)",
@@ -22,10 +24,7 @@ const config = {
     hero: {
         // Título principal que aparece al inicio
         title: "Nuestra historia juntos...",
-
-        // ⚠️ IMPORTANTE: Fecha de inicio de tu relación (YYYY-MM-DD)
-        // El contador calculará automáticamente el tiempo transcurrido
-        // Ejemplo: "2024-02-14" para el 14 de febrero de 2024
+        //Fecha de aniversario
         startDate: "2023-12-13",
 
         // Texto que aparece después del contador
