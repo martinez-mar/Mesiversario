@@ -3,7 +3,7 @@
 
 const config = {
     pageTitle: "Feliz mesiversario ❤️",
-    favicon: "assets/favicon.svg",
+    favicon: "assets/cabezon.jpeg",
 
     // Musica de fondo
     music: {
@@ -101,13 +101,17 @@ const config = {
             "assets/sanignacio.jpeg",
             "assets/walmart.jpeg",
             "assets/walmart2.jpeg",
-            "assets/cabezon.jpeg",
             "assets/luzroja.jpeg",
             "assets/luzroja3.jpeg",
             "assets/ajedrez3.jpeg",
             "assets/ajedrez2.jpeg",
             "assets/casasi2.jpeg",
-        ]
+            "assets/cabezon.jpeg",
+            "assets/cabezon.jpeg",
+            "assets/cabezon.jpeg",
+            "assets/cabezon.jpeg",
+        ],
+        footer: "JAJAJAJAJJAJAJAJAJAJAJAJAJA LOV U <3",
     },
 
     finalMessage: {

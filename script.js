@@ -21,7 +21,7 @@ const initTemplate = () => {
   document.getElementById('hero-final-text').textContent = config.hero.finalText;
   document.getElementById('scroll-text').textContent = config.hero.scrollText;
   document.querySelector('.btn-primary span').textContent = config.hero.buttonText;
-  document.querySelector('.burning-heart').textContent = config.hero.heartCharacter || '❤️‍🔥';
+  document.querySelector('.burning-heart').textContent = config.hero.heartCharacter || '❤️';
 
   // 4. Timeline Generation
   const timelineContainer = document.getElementById('timeline-container');
@@ -91,6 +91,14 @@ const initTemplate = () => {
 // --- Three.js Background Animation ---
 const initThreeJS = () => {
   const container = document.getElementById('canvas-container');
+  
+  // Seguro de inicialización por si el DOM no está completamente listo en Live Server
+  if (!container) {
+    console.warn("Esperando a que el contenedor del canvas esté disponible...");
+    setTimeout(initThreeJS, 100);
+    return;
+  }
+
   const scene = new THREE.Scene();
 
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -101,17 +109,17 @@ const initThreeJS = () => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   container.appendChild(renderer.domElement);
 
-  // Galaxy Background Logic
+  // Parámetros mejorados para el universo interactivo en 3D
   const parameters = {
-    count: 3000,
-    size: 0.1,
-    radius: 30,
-    branches: 4,
-    spin: 1,
-    randomness: 0.5,
-    randomnessPower: 3,
-    insideColor: '#ff6030',
-    outsideColor: '#1b3984'
+    count: 8000,          // Más estrellas para dar profundidad espacial
+    size: 0.18,           // Tamaño ideal para simular brillo lejano
+    radius: 45,           // Amplitud del espacio tridimensional
+    branches: 5,          // Estructura galáctica de 5 brazos espirales
+    spin: 1.2,
+    randomness: 0.65,
+    randomnessPower: 4,
+    insideColor: '#ff7b54',  // Centro cálido/galáctico ardiente
+    outsideColor: '#231548'  // Bordes profundos cósmicos
   };
 
   const geometry = new THREE.BufferGeometry();
@@ -157,10 +165,28 @@ const initThreeJS = () => {
   const points = new THREE.Points(geometry, material);
   scene.add(points);
 
-  points.rotation.x = 0.5;
+  // Inclinación tridimensional de la galaxia
+  points.rotation.x = 0.6;
+  points.rotation.z = 0.15;
+
+  // Seguimiento interactivo del scroll
+  let targetScrollY = 0;
+  window.addEventListener('scroll', () => {
+    targetScrollY = window.scrollY;
+  });
 
   const animate = () => {
-    points.rotation.y += 0.001;
+    // 1. Rotación cósmica continua sobre su eje
+    points.rotation.y += 0.0015;
+    
+    // 2. Movimiento oscilatorio sutil (gravedad cero)
+    const elapsedTime = performance.now() * 0.0006;
+    points.position.y = Math.sin(elapsedTime) * 0.4;
+
+    // 3. Efecto túnel y viaje espacial interactivo al hacer scroll
+    points.rotation.x = 0.6 + (targetScrollY * 0.0004);
+    points.position.z = (targetScrollY * 0.012);
+
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
   };
@@ -207,7 +233,7 @@ const initAnimations = () => {
       y: 100,
       opacity: 0,
       duration: 1,
-      delay: (i % 4) * 0.1, // Adjusted stagger for better performance
+      delay: (i % 4) * 0.1,
       ease: 'power4.out'
     });
   });
@@ -215,10 +241,10 @@ const initAnimations = () => {
 
 // --- UI Logic ---
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize Template Data FIRST
+  // Inicializar datos de plantilla primero
   initTemplate();
 
-  // Then start animations
+  // Iniciar universo y animaciones
   initThreeJS();
   initAnimations();
 
@@ -256,22 +282,18 @@ const typeText = (element, text, speed = 75, callback) => {
 // Date Counter Animation
 const animateDateCounter = () => {
   const el = document.getElementById('hero-date-counter');
-  const h1 = document.getElementById('hero-title'); // Changed selector
+  const h1 = document.getElementById('hero-title');
 
   if (!el || !h1) return;
 
-  // Use config logic
-  const startDateStr = config.hero.startDate; // YYYY-MM-DD
+  const startDateStr = config.hero.startDate;
   const startYear = parseInt(startDateStr.split('-')[0]);
-  const startMonth = parseInt(startDateStr.split('-')[1]) - 1; // 0-indexed
+  const startMonth = parseInt(startDateStr.split('-')[1]) - 1;
   const startDay = parseInt(startDateStr.split('-')[2]);
 
-  // Logic: Count 1 year from start date
   const startDate = new Date(startYear, startMonth, startDay).getTime();
   const endDate = new Date(startYear + 1, startMonth, startDay).getTime();
 
-  // Format MM/DD/YYYY for display initially? Or DD/MM/YYYY?
-  // Let's stick to DD/MM/YYYY
   const formatDate = (date) => {
     const d = String(date.getDate()).padStart(2, '0');
     const m = String(date.getMonth() + 1).padStart(2, '0');
@@ -280,9 +302,7 @@ const animateDateCounter = () => {
   };
 
   typeText(h1, config.hero.title, 60, () => {
-    // Initial State
     el.innerText = formatDate(new Date(startDate));
-
     gsap.to(el, { opacity: 1, y: 0, duration: 1, ease: 'power2.out' });
 
     const duration = 2000;
@@ -359,7 +379,7 @@ const setupHeartScrollEffect = () => {
       trigger: '#intro',
       start: 'top top',
       end: 'bottom top',
-      scrub: 1, // ✨ Smooth scrubbing for mobile
+      scrub: 1,
       onEnter: () => {
         const introHeart = document.querySelector('#intro .burning-heart');
         if (introHeart) introHeart.style.animation = 'none';
@@ -369,8 +389,8 @@ const setupHeartScrollEffect = () => {
         if (introHeart) introHeart.style.animation = 'burnPulse 1.5s infinite alternate';
       }
     },
-    scale: isMobile ? 8 : 15, // Reduced scale on mobile
-    y: isMobile ? 300 : 600,  // Reduced movement on mobile
+    scale: isMobile ? 8 : 15,
+    y: isMobile ? 300 : 600,
     opacity: 0,
     ease: "power1.in"
   });
@@ -380,14 +400,14 @@ const setupHeartScrollEffect = () => {
       trigger: '#intro',
       start: 'top top',
       end: '10% top',
-      scrub: 1 // Smooth fade out
+      scrub: 1
     },
     opacity: 0,
     y: -20
   });
 };
 
-// Force scroll to top
+// Forzar el scroll hacia arriba en recarga
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
 }
@@ -402,7 +422,6 @@ window.addEventListener('load', () => {
   let isPlaying = false;
 
   const startExperience = () => {
-    // Start music
     bgMusic.muted = false;
     bgMusic.volume = config.music.volume;
     bgMusic.play().then(() => {
@@ -412,10 +431,9 @@ window.addEventListener('load', () => {
         musicToggle.querySelector('.music-icon').textContent = '🔊';
       }
     }).catch(err => {
-      console.log('Error playing music:', err);
+      console.log('Error jugando la música:', err);
     });
 
-    // Fade out loader
     setTimeout(() => {
       loader.style.opacity = '0';
       loader.style.visibility = 'hidden';
@@ -429,12 +447,10 @@ window.addEventListener('load', () => {
 
   if (loaderBtn) {
     loaderBtn.addEventListener('click', startExperience);
-    // Also allow clicking the hint
     const hint = document.querySelector('.click-hint');
     if (hint) hint.addEventListener('click', startExperience);
   }
 
-  // Music toggle
   if (musicToggle && bgMusic) {
     musicToggle.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -451,10 +467,9 @@ window.addEventListener('load', () => {
           musicToggle.querySelector('.music-icon').textContent = '🔊';
           isPlaying = true;
         }).catch(err => {
-          console.log('Error playing music:', err);
+          console.log('Error de reproducción:', err);
         });
       }
     });
   }
 });
-
