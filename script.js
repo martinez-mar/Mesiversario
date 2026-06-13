@@ -16,8 +16,7 @@ const initTemplate = () => {
   document.getElementById('loading-hint').textContent = config.loading.clickHint;
   document.getElementById('loading-msg').textContent = config.loading.message;
 
-  // 3. Hero Section
-  document.getElementById('hero-title').textContent = config.hero.title;
+  // document.getElementById('hero-title').textContent = config.hero.title;
   document.getElementById('hero-final-text').textContent = config.hero.finalText;
   document.getElementById('scroll-text').textContent = config.hero.scrollText;
   document.querySelector('.btn-primary span').textContent = config.hero.buttonText;
@@ -84,7 +83,7 @@ const initTemplate = () => {
   const bgMusic = document.getElementById('bg-music');
   if (config.music && config.music.path) {
     bgMusic.src = config.music.path;
-    bgMusic.volume = config.music.volume || 0.3;
+    bgMusic.volume = config.music.volume || 0.2;
   }
 };
 
@@ -291,8 +290,8 @@ const animateDateCounter = () => {
   const startMonth = parseInt(startDateStr.split('-')[1]) - 1;
   const startDay = parseInt(startDateStr.split('-')[2]);
 
-  const startDate = new Date(startYear, startMonth, startDay).getTime();
-  const endDate = new Date(startYear + 1, startMonth, startDay).getTime();
+  const startDate = new Date(2023, 0, 1).getTime(); // Empieza el conteo desde el 1 de enero de 2023 para el efecto visual
+  const endDate = new Date(startYear, startMonth, startDay).getTime(); // Termina EXACTAMENTE en tu fecha del config.js
 
   const formatDate = (date) => {
     const d = String(date.getDate()).padStart(2, '0');
