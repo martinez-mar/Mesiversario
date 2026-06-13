@@ -18,7 +18,7 @@ const config = {
         buttonText: "iendooooo",
 
         // Texto de ayuda que aparece arriba del botón
-        clickHint: "Pushale aki"
+        clickHint: "Pushale aki",
     },
 
     hero: {
@@ -31,14 +31,14 @@ const config = {
         finalText: "Aquí andamos pq aquí es en donde nos puso la vidaaaaaaaa uwu",
 
         // Texto del indicador de scroll
-        scrollText: "Jalele pa ver más 7u7"
+        scrollText: "Jalele pa ver más 7u7",
     },
 
     timeline: [
         // ========== EVENTO 1 ==========
         {
             // Título del evento (puedes usar emojis)
-            title: "La perfección hecha hombre 😍", ",
+            title: "La perfección hecha hombre 😍",
 
             // Descripción del evento (puedes usar HTML como <br> para saltos de línea)
             content: `Empecemos recordándote lo mucho que me encantas, no solo físicamente, pero diosssss, mira a semejante rubioooo OwO`,
@@ -48,7 +48,7 @@ const config = {
                 "assets/parqueabrazo.jpeg",
             ],
 
-            footer: "Soy la mujer más afortunada del mundo por tenerte a mi lado ❤️u❤️"
+            footer: "Soy la mujer más afortunada del mundo por tenerte a mi lado ❤️u❤️",
         },
 
         {
@@ -58,7 +58,7 @@ const config = {
             images: ["assets/luzroja1.jpeg"],
             images: ["assets/luzroja3.jpeg"],
             images: ["assets/plaza2.jpeg"],
-            footer: "Cada momento contigo es un tesoro que guardo en mi mente, en mi corazón ❤️"
+            footer: "Cada momento contigo es un tesoro que guardo en mi mente, en mi corazón ❤️",
         },
 
         // ========== EVENTO 3 ==========
@@ -69,7 +69,7 @@ const config = {
             images: ["assets/ajedrez3.jpeg"],
             images: ["assets/abasho.jpeg"],
             images: ["assets/ajedrez2.jpeg"],
-            footer: "Nervios, risas y mariposas en el estómago, miedo, envidia, todo eso que yo te provoco ;) ntc JAJA tú tambn a mi pa que no llores :3"
+            footer: "Nervios, risas y mariposas en el estómago, miedo, envidia, todo eso que yo te provoco ;) ntc JAJA tú tambn a mi pa que no llores :3",
         },
         // ========== EVENTO 4 ==========
         {
@@ -78,7 +78,7 @@ const config = {
             images: ["assets/baño.jpeg"],
             images: ["assets/casasi.jpeg"],
             images: ["assets/casasi2.jpeg"],
-            footer: "Gracias por estos 30 meses damsito lindo, no hay dinero ni berries pero hay manitas programadoras y sin envidias paros jajajasju❤️"
+            footer: "Gracias por estos 30 meses damsito lindo, no hay dinero ni berries pero hay manitas programadoras y sin envidias paros jajajasju❤️",
         },
 
     gallery: {
@@ -98,17 +98,17 @@ const config = {
             "assets/plaza4.jpeg",
             "assets/plazabeso.jpeg",
             "assets/plazamirada.jpeg",
-            "assets/suegra.jpeg"
-            "assets/sanignacio.jpeg"
-            "assets/walmart.jpeg"
-            "assets/walmart2.jpeg"
-            "assets/cabezon.jpeg"
+            "assets/suegra.jpeg",
+            "assets/sanignacio.jpeg",
+            "assets/walmart.jpeg",
+            "assets/walmart2.jpeg",
+            "assets/cabezon.jpeg",
         ]
     },
 
     finalMessage: {
         // Mensaje de cierre (puedes usar <br> para saltos de línea)
-        content: "Gracias por ser parte de mi vida ❤️<br>Gracias por estos 30 increibles meses :3 <br>Gracias por tenerme envidia para hacerme más fuerte XD <br>Te amo infinitamente mi guerito lindo, amor de mi vida, mi todo S2"
+        content: "Gracias por ser parte de mi vida ❤️<br>Gracias por estos 30 increibles meses :3 <br>Gracias por tenerme envidia para hacerme más fuerte XD <br>Te amo infinitamente mi guerito lindo, amor de mi vida, mi todo S2",
     }
 };
 
