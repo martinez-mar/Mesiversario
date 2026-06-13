@@ -93,10 +93,9 @@ const config = {
             "assets/cabezon.jpeg",
             "assets/cabezon.jpeg",
         ],
-        footer: "JAJAJAJAJJAJAJAJAJAJAJAJAJA LOV U <3",
     },
-
+    
     finalMessage: {
-        content: "Gracias por ser parte de mi vida ❤️<br>Gracias por estos 30 increíbles meses :3<br>Gracias por tenerme envidia para hacerme más fuerte XD<br>Te amo infinitamente mi guerito lindo, amor de mi vida, mi todo S2",
+        content: "JAJAJAJAJAJAJAJA LOV U <3 <br>Gracias por ser parte de mi vida ❤️<br>Gracias por estos 30 increíbles meses :3<br>Gracias por tenerme envidia para hacerme más fuerte XD<br>Te amo infinitamente mi guerito lindo, amor de mi vida, mi todo S2",
     }
 };

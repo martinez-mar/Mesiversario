@@ -82,7 +82,7 @@ const initTemplate = () => {
       <div class="placeholder-img">
         <img src="${imgSrc}" alt="Recuerdo ${idx + 1}" style="width: 100%; height: 100%; object-fit: cover;">
       </div>
-      <div class="photo-caption">Nosotros ❤️</div>
+      <div class="photo-caption">Me encantas❤️</div>
     `;
     galleryContainer.appendChild(photoCard);
   });
