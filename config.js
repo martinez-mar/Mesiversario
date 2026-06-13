@@ -49,8 +49,6 @@ const config = {
 
             images: [
                 "assets/luzroja2.jpeg",
-                "assets/luzroja1.jpeg",
-                "assets/luzroja3.jpeg",
                 "assets/plaza2.jpeg"
             ],
 
@@ -64,9 +62,7 @@ const config = {
 
             images: [
                 "assets/ajedrez.jpeg",
-                "assets/ajedrez3.jpeg",
                 "assets/abasho.jpeg",
-                "assets/ajedrez2.jpeg"
             ],
 
             footer: "Nervios, risas y mariposas en el estómago, miedo, envidia, todo eso que yo te provoco ;) ntc JAJA tú tambn a mi pa que no llores :3",
@@ -80,7 +76,6 @@ const config = {
             images: [
                 "assets/baño.jpeg",
                 "assets/casasi.jpeg",
-                "assets/casasi2.jpeg"
             ],
 
             footer: "Gracias por estos 30 meses damsito lindo, no hay dinero ni berries pero hay manitas programadoras y sin envidias paros jajajasju❤️",
@@ -106,7 +101,12 @@ const config = {
             "assets/sanignacio.jpeg",
             "assets/walmart.jpeg",
             "assets/walmart2.jpeg",
-            "assets/cabezon.jpeg"
+            "assets/cabezon.jpeg",
+            "assets/luzroja.jpeg",
+            "assets/luzroja3.jpeg",
+            "assets/ajedrez3.jpeg",
+            "assets/ajedrez2.jpeg",
+            "assets/casasi2.jpeg",
         ]
     },
 
