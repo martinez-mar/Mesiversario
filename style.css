@@ -84,6 +84,8 @@ body {
 
 .infinite-svg {
   pointer-events: none;
+  width: 150px;
+  height: 80px;
 }
 
 .click-hint {
@@ -101,44 +103,18 @@ body {
 }
 
 @keyframes bounce {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-5px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 
 @keyframes blink {
-
-  0%,
-  100% {
-    opacity: 0.6;
-  }
-
-  50% {
-    opacity: 1;
-  }
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.infinite-svg {
-  width: 150px;
-  height: 80px;
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .infinite-path {
@@ -153,21 +129,13 @@ body {
 }
 
 @keyframes drawInfinite {
-  0% {
-    stroke-dashoffset: 300;
-  }
-
-  50% {
-    stroke-dashoffset: 0;
-  }
-
-  100% {
-    stroke-dashoffset: -300;
-  }
+  0% { stroke-dashoffset: 300; }
+  50% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -300; }
 }
 
 /* Music Control Button */
-.music-btn {
+.music-toggle {
   position: fixed;
   bottom: 30px;
   right: 30px;
@@ -187,12 +155,12 @@ body {
   animation: fadeInMusic 0.5s ease 2.5s forwards;
 }
 
-.music-btn:hover {
+#music-toggle:hover {
   transform: scale(1.1);
   box-shadow: 0 6px 20px rgba(255, 77, 128, 0.6);
 }
 
-.music-btn.playing {
+#music-toggle.playing {
   background: rgba(139, 61, 255, 0.9);
 }
 
@@ -201,40 +169,39 @@ body {
   animation: pulse 2s ease-in-out infinite;
 }
 
-.music-btn.playing .music-icon {
+#music-toggle.playing .music-icon {
   animation: none;
 }
 
-@keyframes fadeInMusic {
-  to {
-    opacity: 1;
-  }
-}
+@keyframes fadeInMusic { to { opacity: 1; } }
 
 @keyframes pulse {
-
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.1);
-  }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
-/* Canvas for Three.js background */
 #canvas-container {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2; 
+  background-color: #0a0614;
   pointer-events: none;
+  overflow: hidden;
 }
 
-/* Layout */
+#canvas-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+body, #intro {
+  background: transparent !important; 
+}
+
 section {
   min-height: 100vh;
   width: 100%;
@@ -248,10 +215,8 @@ section {
   position: relative;
   z-index: 1;
   overflow: hidden;
-  /* Prevent inner content spill */
 }
 
-/* Typography */
 h1 {
   font-family: var(--font-serif);
   font-size: 3.5rem;
@@ -265,7 +230,6 @@ h1 {
   text-shadow: 0 10px 30px rgba(230, 57, 115, 0.3);
 }
 
-/* Hero H1 specific (typewriter effect) */
 #intro h1 {
   opacity: 0;
 }
@@ -285,7 +249,6 @@ p {
   margin-bottom: 20px;
 }
 
-/* Glassmorphism Components */
 .card-glass {
   background: var(--glass);
   backdrop-filter: blur(var(--glass-blur));
@@ -295,7 +258,6 @@ p {
   border-radius: 20px;
 }
 
-/* Buttons */
 .btn-primary {
   margin-top: 40px;
   padding: 16px 40px;
@@ -334,9 +296,7 @@ p {
   box-shadow: 0 15px 30px rgba(255, 77, 128, 0.6);
 }
 
-.btn-primary:hover::before {
-  opacity: 1;
-}
+.btn-primary:hover::before { opacity: 1; }
 
 /* Timeline */
 .timeline {
@@ -393,9 +353,7 @@ p {
   overflow: hidden;
   opacity: 0;
   transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.4s ease,
-    margin-top 0.4s ease,
-    padding-top 0.4s ease;
+              opacity 0.4s ease, margin-top 0.4s ease, padding-top 0.4s ease;
   color: rgba(255, 255, 255, 0.7);
   font-size: 1rem;
 }
@@ -408,7 +366,7 @@ p {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Gallery - Polaroid Collage Board */
+/* Gallery Polaroid Collage */
 .gallery {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -422,71 +380,29 @@ p {
   position: relative;
   background: #fff;
   padding: 15px 15px 60px 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
-    0 1px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 1px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   cursor: pointer;
   border: none;
   backdrop-filter: none;
 }
 
-/* Random rotations for organic look */
-.photo-card:nth-child(1) {
-  transform: rotate(-2deg);
-}
-
-.photo-card:nth-child(2) {
-  transform: rotate(3deg);
-}
-
-.photo-card:nth-child(3) {
-  transform: rotate(-1deg);
-}
-
-.photo-card:nth-child(4) {
-  transform: rotate(2deg);
-}
-
-.photo-card:nth-child(5) {
-  transform: rotate(-3deg);
-}
-
-.photo-card:nth-child(6) {
-  transform: rotate(1deg);
-}
-
-.photo-card:nth-child(7) {
-  transform: rotate(-2.5deg);
-}
-
-.photo-card:nth-child(8) {
-  transform: rotate(2.5deg);
-}
-
-.photo-card:nth-child(9) {
-  transform: rotate(-1.5deg);
-}
-
-.photo-card:nth-child(10) {
-  transform: rotate(3.5deg);
-}
-
-.photo-card:nth-child(11) {
-  transform: rotate(-2deg);
-}
-
-.photo-card:nth-child(12) {
-  transform: rotate(1.5deg);
-}
+/* Rotaciones orgánicas */
+.photo-card:nth-child(1) { transform: rotate(-2deg); }
+.photo-card:nth-child(2) { transform: rotate(3deg); }
+.photo-card:nth-child(3) { transform: rotate(-1deg); }
+.photo-card:nth-child(4) { transform: rotate(2deg); }
+.photo-card:nth-child(5) { transform: rotate(-3deg); }
+.photo-card:nth-child(6) { transform: rotate(1deg); }
+.photo-card:nth-child(7) { transform: rotate(-2.5deg); }
+.photo-card:nth-child(8) { transform: rotate(2.5deg); }
 
 .photo-card:hover {
   transform: scale(1.05) rotate(0deg) !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
-    0 2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 2px 10px rgba(0, 0, 0, 0.3);
   z-index: 10;
 }
 
-/* Tape effect on top */
 .photo-card::before {
   content: '';
   position: absolute;
@@ -524,54 +440,6 @@ p {
   margin-top: 10px;
 }
 
-/* Letters */
-.letters-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 700px;
-  width: 100%;
-}
-
-.letter-card {
-  padding: 30px;
-  text-align: left;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  overflow: hidden;
-}
-
-.letter-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.letter-icon {
-  font-size: 1.5rem;
-}
-
-.letter-body {
-  height: 0;
-  opacity: 0;
-  overflow: hidden;
-  margin-top: 0;
-  font-style: italic;
-  font-family: var(--font-serif);
-  color: rgba(255, 255, 255, 0.8);
-  transition: all 0.5s ease;
-}
-
-.letter-card.open .letter-body {
-  height: auto;
-  opacity: 1;
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px dashed rgba(255, 255, 255, 0.2);
-}
-
 /* Date Counter Animation */
 .date-counter-anim {
   font-family: 'Courier New', monospace;
@@ -588,18 +456,15 @@ p {
 /* Final Reveal Container */
 #final-reveal {
   display: none;
-  /* Hidden strictly until date finishes */
   flex-direction: column;
   align-items: center;
   gap: 20px;
   opacity: 0;
-  /* Controlled by GSAP */
 }
 
 .final-text {
   font-family: var(--font-serif);
   font-size: 3rem;
-  /* Smaller than H1 (4rem) */
   line-height: 1.2;
   letter-spacing: 1px;
   background: linear-gradient(135deg, #fff 0%, #ffbfd3 100%);
@@ -614,33 +479,12 @@ p {
 }
 
 @keyframes burnPulse {
-  0% {
-    transform: scale(1);
-    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff4d00;
-  }
-
-  100% {
-    transform: scale(1.1);
-    text-shadow: 0 0 20px #ff4d00, 0 0 40px #ffcc00;
-  }
+  0% { transform: scale(1); text-shadow: 0 0 10px #ff0000, 0 0 20px #ff4d00; }
+  100% { transform: scale(1.1); text-shadow: 0 0 20px #ff4d00, 0 0 40px #ffcc00; }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Scroll Indicator */
 .scroll-indicator {
   margin-top: 100px;
-  /* Pushed down significantly */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -650,10 +494,7 @@ p {
   cursor: pointer;
 }
 
-.heart-wrapper {
-  display: inline-block;
-  /* Keep it centered */
-}
+.heart-wrapper { display: inline-block; }
 
 .scroll-indicator span {
   font-size: 0.9rem;
@@ -670,203 +511,28 @@ p {
   transform: rotate(45deg);
 }
 
-@keyframes bounce {
-
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
-    transform: translateY(0);
-  }
-
-  40% {
-    transform: translateY(-10px);
-  }
-
-  60% {
-    transform: translateY(-5px);
-  }
-}
-
-/* --- Mobile Responsive Overrides --- */
+/* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
-
-  /* Typography adjustments */
-  h1 {
-    font-size: 2.2rem !important;
-    margin-bottom: 25px;
-    word-break: normal;
-    overflow-wrap: break-word;
-    white-space: normal;
-    max-width: 100%;
-    padding: 0 10px;
-  }
-
-  h2 {
-    font-size: 1.8rem;
-    margin-bottom: 30px;
-  }
-
-  .final-text {
-    font-size: min(2rem, 7vw) !important;
-    white-space: normal;
-    /* Allow wrap on very small screens */
-    width: 100%;
-    text-align: center;
-    padding: 0 10px;
-  }
-
-  p {
-    font-size: 1rem;
-    line-height: 1.6;
-    padding: 0 10px;
-  }
-
-  /* Section spacing */
-  section {
-    padding: 60px 20px;
-    min-height: auto;
-    /* Allow content to define height on mobile */
-  }
-
-  section#intro {
-    min-height: 100vh;
-    padding-top: 100px;
-  }
-
-  /* Hero elements */
-  #final-reveal {
-    gap: 20px;
-    width: 100%;
-  }
-
-  .burning-heart {
-    font-size: 4rem;
-  }
-
-  .date-counter-anim {
-    font-size: 1.6rem;
-    margin-bottom: 30px;
-  }
-
-  /* Gallery - Optimized Grid */
-  .gallery {
-    grid-template-columns: repeat(2, 1fr);
-    /* 2 columns is standard */
-    gap: 15px;
-    padding: 20px 10px;
-  }
-
-  /* Reduce rotation on mobile for cleaner look */
-  .photo-card:nth-child(n) {
-    transform: rotate(0deg);
-    margin-bottom: 10px;
-  }
-
-  .photo-card {
-    padding: 10px 10px 40px 10px;
-  }
-
-  .photo-card:hover {
-    transform: scale(1) !important;
-    /* Disable hover scale on touch */
-  }
-
-  /* Timeline adjustments */
-  .timeline::before {
-    left: 20px;
-  }
-
-  .event {
-    justify-content: flex-end;
-    margin: 30px 0;
-  }
-
-  .event-card {
-    width: calc(100% - 40px);
-    /* Full width minus line offset */
-    margin-left: auto;
-    padding: 20px;
-  }
-
-  .event-title {
-    font-size: 1.1rem;
-  }
-
-  /* Interactive Elements */
-  .btn-primary {
-    padding: 14px 30px;
-    font-size: 1rem;
-    width: 80%;
-    /* Easier to tap */
-    max-width: 300px;
-  }
-
-  /* Music button */
-  .music-btn {
-    width: 50px;
-    height: 50px;
-    bottom: 20px;
-    right: 20px;
-  }
-
-  .music-icon {
-    font-size: 1.2rem;
-  }
+  h1 { font-size: 2.2rem !important; margin-bottom: 25px; padding: 0 10px; }
+  h2 { font-size: 1.8rem; margin-bottom: 30px; }
+  .final-text { font-size: min(2rem, 7vw) !important; width: 100%; text-align: center; }
+  p { font-size: 1rem; line-height: 1.6; }
+  section { padding: 60px 20px; min-height: auto; }
+  section#intro { min-height: 100vh; padding-top: 100px; }
+  .burning-heart { font-size: 4rem; }
+  .date-counter-anim { font-size: 1.6rem; }
+  
+  .gallery { grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px 10px; }
+  .photo-card:nth-child(n) { transform: rotate(0deg); margin-bottom: 10px; }
+  .photo-card { padding: 10px 10px 40px 10px; }
+  .photo-card:hover { transform: scale(1) !important; }
+  
+  .timeline::before { left: 20px; }
+  .event { justify-content: flex-end; }
+  .event-card { width: calc(100% - 40px); margin-left: auto; padding: 20px; }
+  .btn-primary { width: 80%; max-width: 300px; }
 }
 
-/* Very Small Screens */
 @media (max-width: 380px) {
-  .gallery {
-    grid-template-columns: 1fr;
-    /* 1 column on tiny screens */
-  }
-
-  h1 {
-    font-size: 1.8rem !important;
-  }
-  /* ==========================================
-   FORZAR FONDO DEL UNIVERSO 3D (THREE.JS)
-   ========================================== */
-#canvas-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1; /* Lo manda al fondo de todo */
-  pointer-events: none; /* Deja que puedas clickear los botones de la página */
-  overflow: hidden;
-}
-
-#canvas-container canvas {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
-}
-}
-/* ==========================================
-   FORZAR VISIBILIDAD DEL UNIVERSO NATIVO
-   ========================================== */
-body, #intro {
-  background: transparent !important; 
-}
-
-#canvas-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -2; 
-  background-color: #0a0614; /* Color base del espacio profundo */
-  pointer-events: none;
-  overflow: hidden;
-}
-
-#canvas-container canvas {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
+  .gallery { grid-template-columns: 1fr; }
 }

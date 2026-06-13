@@ -1,7 +1,9 @@
 // --- Template Initialization ---
 const initTemplate = () => {
+  // 1. Page Title
   document.title = config.pageTitle;
 
+  // 1.b Favicon
   if (config.favicon) {
     const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
     link.type = 'image/x-icon';
@@ -10,27 +12,38 @@ const initTemplate = () => {
     document.getElementsByTagName('head')[0].appendChild(link);
   }
 
+  // 2. Loading Screen
   document.getElementById('loading-hint').textContent = config.loading.clickHint;
   document.getElementById('loading-msg').textContent = config.loading.message;
 
-  // Limpieza inicial anti-duplicados
-  document.getElementById('hero-title').innerHTML = "";
+  // 3. Hero Section
+  document.getElementById('hero-title').textContent = config.hero.title;
   document.getElementById('hero-final-text').textContent = config.hero.finalText;
   document.getElementById('scroll-text').textContent = config.hero.scrollText;
-  document.querySelector('.btn-primary span').textContent = config.hero.buttonText;
+  
+  // Validación de seguridad para evitar congelamiento de script
+  const mainBtnSpan = document.querySelector('.btn-primary span');
+  if (mainBtnSpan) {
+    mainBtnSpan.textContent = "Empezar el viaje";
+  }
+  
   document.querySelector('.burning-heart').textContent = config.hero.heartCharacter || '❤️‍🔥';
 
+  // 4. Timeline Generation
   const timelineContainer = document.getElementById('timeline-container');
+  timelineContainer.innerHTML = ''; // Limpieza anti-duplicados
+
   config.timeline.forEach((event, index) => {
     const eventDiv = document.createElement('div');
     eventDiv.className = 'event';
     eventDiv.onclick = function () { toggleEvent(this); };
 
+    // Media Logic (Images or Videos)
     let mediaHtml = '';
     if (event.images && event.images.length > 0) {
-      mediaHtml += '<div style="display: flex; justify-content: space-between; gap: 10px; margin: 1rem 0;">';
+      mediaHtml += '<div style="display: flex; justify-content: space-between; gap: 10px; margin: 1rem 0; flex-wrap: wrap;">';
       event.images.forEach(img => {
-        mediaHtml += `<img src="${img}" style="width: ${event.images.length > 1 ? '48%' : '100%'}; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">`;
+        mediaHtml += `<img src="${img}" style="width: ${event.images.length > 1 ? '48%' : '100%'}; min-width: 120px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); object-fit: cover;">`;
       });
       mediaHtml += '</div>';
     }
@@ -45,11 +58,11 @@ const initTemplate = () => {
 
     eventDiv.innerHTML = `
       <div class="card-glass event-card">
-        <div class="event-title">${event.title}</div>
+        <div class="event-title" style="font-weight: 600;">${event.title}</div>
         <div class="event-content">
-          ${event.content}
+          <p style="margin-bottom: 10px; color: rgba(255,255,255,0.9);">${event.content}</p>
           ${mediaHtml}
-          ${event.footer ? `<div style="text-align: center; font-size: 0.9rem; opacity: 0.8; margin-top: 10px;">${event.footer}</div>` : ''}
+          ${event.footer ? `<div style="text-align: center; font-size: 0.85rem; opacity: 0.8; margin-top: 10px; font-style: italic; color: #ff4d80;">${event.footer}</div>` : ''}
           ${event.extra || ''}
         </div>
       </div>
@@ -57,101 +70,127 @@ const initTemplate = () => {
     timelineContainer.appendChild(eventDiv);
   });
 
+  // 5. Gallery Generation
   const galleryContainer = document.getElementById('gallery-container');
+  galleryContainer.innerHTML = ''; // Limpieza anti-duplicados
   document.getElementById('gallery-title').textContent = config.gallery.title;
 
-  config.gallery.images.forEach(imgSrc => {
+  config.gallery.images.forEach((imgSrc, idx) => {
     const photoCard = document.createElement('div');
     photoCard.className = 'card-glass photo-card';
     photoCard.innerHTML = `
       <div class="placeholder-img">
-        <img src="${imgSrc}" alt="Recuerdo" style="width: 100%; height: 100%; object-fit: cover;">
+        <img src="${imgSrc}" alt="Recuerdo ${idx + 1}" style="width: 100%; height: 100%; object-fit: cover;">
       </div>
+      <div class="photo-caption">Nosotros ❤️</div>
     `;
     galleryContainer.appendChild(photoCard);
   });
 
+  // 6. Final Message
   document.getElementById('final-message').innerHTML = config.finalMessage.content;
 
+  // 7. Music Source
   const bgMusic = document.getElementById('bg-music');
   if (config.music && config.music.path) {
     bgMusic.src = config.music.path;
-    bgMusic.volume = config.music.volume || 0.2;
+    bgMusic.volume = config.music.volume || 0.3;
   }
+
+  // Despliega automáticamente el primer evento de la historia
+  setTimeout(() => {
+    const firstEvent = document.querySelector('.event');
+    if (firstEvent) firstEvent.classList.add('active');
+  }, 1200);
 };
 
-// --- Fondo Cósmico Nativo Inicial (Estrellas Pequeñas y Estéticas) ---
+// --- Three.js Background Animation ---
 const initThreeJS = () => {
   const container = document.getElementById('canvas-container');
-  if (!container) {
-    setTimeout(initThreeJS, 100);
-    return;
-  }
+  if (!container) return;
 
-  const canvas = document.createElement('canvas');
-  container.appendChild(canvas);
-  const ctx = canvas.getContext('2d');
+  const scene = new THREE.Scene();
 
-  let stars = [];
-  const numStars = 180; 
-  let targetScrollY = 0;
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.z = 30;
 
-  const resize = () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  container.appendChild(renderer.domElement);
+
+  // Galaxy Background Logic
+  const parameters = {
+    count: 3000,
+    size: 0.1,
+    radius: 30,
+    branches: 4,
+    spin: 1,
+    randomness: 0.5,
+    randomnessPower: 3,
+    insideColor: '#ff6030',
+    outsideColor: '#1b3984'
   };
-  window.addEventListener('resize', resize);
-  resize();
 
-  for (let i = 0; i < numStars; i++) {
-    stars.push({
-      x: Math.random() * canvas.width - canvas.width / 2,
-      y: Math.random() * canvas.height - canvas.height / 2,
-      z: Math.random() * canvas.width,
-      color: Math.random() > 0.4 ? '#ff7b54' : '#a29bfe'
-    });
+  const geometry = new THREE.BufferGeometry();
+  const positions = new Float32Array(parameters.count * 3);
+  const colors = new Float32Array(parameters.count * 3);
+
+  const colorInside = new THREE.Color(parameters.insideColor);
+  const colorOutside = new THREE.Color(parameters.outsideColor);
+
+  for (let i = 0; i < parameters.count; i++) {
+    const i3 = i * 3;
+    const radius = Math.random() * parameters.radius;
+    const spinAngle = radius * parameters.spin;
+    const branchAngle = (i % parameters.branches) / parameters.branches * Math.PI * 2;
+
+    const randomX = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
+    const randomY = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
+    const randomZ = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
+
+    positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
+    positions[i3 + 1] = randomY;
+    positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
+
+    const mixedColor = colorInside.clone();
+    mixedColor.lerp(colorOutside, radius / parameters.radius);
+
+    colors[i3] = mixedColor.r;
+    colors[i3 + 1] = mixedColor.g;
+    colors[i3 + 2] = mixedColor.b;
   }
 
-  window.addEventListener('scroll', () => {
-    targetScrollY = window.scrollY;
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+  const material = new THREE.PointsMaterial({
+    size: parameters.size,
+    sizeAttenuation: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    vertexColors: true
   });
 
+  const points = new THREE.Points(geometry, material);
+  scene.add(points);
+
+  points.rotation.x = 0.5;
+
   const animate = () => {
-    ctx.fillStyle = 'rgba(10, 6, 20, 0.18)'; 
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    const cx = canvas.width / 2;
-    const cy = canvas.height / 2;
-    let speed = 1.2 + (targetScrollY * 0.03);
-
-    stars.forEach(star => {
-      star.z -= speed;
-
-      if (star.z <= 0) {
-        star.z = canvas.width;
-        star.x = Math.random() * canvas.width - cx;
-        star.y = Math.random() * canvas.height - cy;
-      }
-
-      const px = (star.x / star.z) * cx + cx;
-      const py = (star.y / star.z) * cy + cy;
-      const size = (1 - star.z / canvas.width) * 1.8; // Estrellas finitas
-
-      if (px >= 0 && px <= canvas.width && py >= 0 && py <= canvas.height) {
-        ctx.beginPath();
-        ctx.arc(px, py, Math.max(0.1, size), 0, Math.PI * 2);
-        ctx.fillStyle = star.color;
-        ctx.shadowBlur = 5;
-        ctx.shadowColor = star.color;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      }
-    });
-
+    points.rotation.y += 0.001;
+    renderer.render(scene, camera);
     requestAnimationFrame(animate);
   };
 
   animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  });
 };
 
 // --- GSAP Animations ---
@@ -161,6 +200,7 @@ const initAnimations = () => {
   const heroTl = gsap.timeline();
   heroTl.from('.btn-primary', { scale: 0.8, opacity: 0, duration: 0.8, ease: 'back.out(1.7)', delay: 2 });
 
+  // Timeline Events
   gsap.utils.toArray('.event').forEach((event, i) => {
     gsap.from(event, {
       scrollTrigger: {
@@ -175,6 +215,7 @@ const initAnimations = () => {
     });
   });
 
+  // Gallery Photos
   gsap.utils.toArray('.photo-card').forEach((card, i) => {
     gsap.from(card, {
       scrollTrigger: {
@@ -207,18 +248,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     element.classList.toggle('active');
+    
+    // ✨ SOLUCIÓN PARA LIVE SERVER: Forzar a ScrollTrigger a refrescar la altura real de las imágenes inyectadas
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 350);
   };
 });
 
-// Typewriter Effect (Corregido)
+// Typewriter Effect
 const typeText = (element, text, speed = 75, callback) => {
-  element.innerHTML = ""; 
+  element.textContent = "";
   element.style.opacity = 1;
   let i = 0;
 
   const timer = setInterval(() => {
     if (i < text.length) {
-      element.innerHTML += text.charAt(i);
+      element.textContent += text.charAt(i);
       i++;
     } else {
       clearInterval(timer);
@@ -227,17 +273,17 @@ const typeText = (element, text, speed = 75, callback) => {
   }, speed);
 };
 
-// Date Counter Animation
+// Date Counter Animation (Configurado de 13/Dic/2023 hacia el día de HOY)
 const animateDateCounter = () => {
   const el = document.getElementById('hero-date-counter');
   const h1 = document.getElementById('hero-title');
 
   if (!el || !h1) return;
-  
-  h1.innerHTML = ""; 
 
-  const startDate = new Date().getTime(); 
-  const endDate = new Date(2023, 11, 13).getTime(); 
+  // Fecha de inicio fija: 13 de Diciembre de 2023
+  const startDate = new Date(2023, 11, 13).getTime(); 
+  // Fecha final: Día de hoy dinámico
+  const endDate = new Date().getTime();
 
   const formatDate = (date) => {
     const d = String(date.getDate()).padStart(2, '0');
@@ -250,16 +296,17 @@ const animateDateCounter = () => {
     el.innerText = formatDate(new Date(startDate));
     gsap.to(el, { opacity: 1, y: 0, duration: 1, ease: 'power2.out' });
 
-    const duration = 2500; 
+    const duration = 2000;
     let startTime = null;
 
     const update = (currentTime) => {
       if (!startTime) startTime = currentTime;
       const elapsed = currentTime - startTime;
       let progress = Math.min(elapsed / duration, 1);
-      
-      const easedProgress = 1 - Math.pow(1 - progress, 3);
-      const currentMap = startDate - (startDate - endDate) * easedProgress;
+      const easedProgress = Math.pow(progress, 3);
+
+      // Suma el progreso para avanzar cronológicamente hacia adelante
+      const currentMap = startDate + (endDate - startDate) * easedProgress;
       const dateObj = new Date(currentMap);
 
       el.innerText = formatDate(dateObj);
@@ -278,37 +325,35 @@ const animateDateCounter = () => {
   });
 };
 
-// Final Reveal Logic Corregida (Fuerza el centrado de los textos)
+// Final Reveal Logic - COMPLETAMENTE REPARADA PARA DESPLIEGUE FLEXIBLE NATIVO
 const triggerFinalReveal = (dateElement) => {
   gsap.to(dateElement, {
-    scale: 8,
+    scale: 4,
     opacity: 0,
     duration: 1.2,
     ease: "power2.in",
     onComplete: () => {
       dateElement.style.display = 'none';
-      
       const revealContainer = document.getElementById('final-reveal');
-      const finalTitle = document.getElementById('hero-final-text');
 
       if (revealContainer) {
+        // Activamos los estilos necesarios de forma síncrona
         revealContainer.style.display = 'flex';
         revealContainer.style.flexDirection = 'column';
         revealContainer.style.alignItems = 'center';
-        revealContainer.style.opacity = 0;
 
-        gsap.to(revealContainer, {
-          opacity: 1,
-          duration: 1.5,
-          ease: "power2.out",
-          onComplete: () => {
-            setupHeartScrollEffect();
+        // Animación limpia de entrada con GSAP controlando la opacidad global
+        gsap.fromTo(revealContainer, 
+          { opacity: 0 },
+          {
+            opacity: 1,
+            duration: 1.5,
+            ease: "power2.out",
+            onComplete: () => {
+              setupHeartScrollEffect();
+              ScrollTrigger.refresh(); // Asegura sincronía con los timelines de abajo
+            }
           }
-        });
-
-        gsap.fromTo(finalTitle,
-          { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1.2, ease: "power3.out" }
         );
       }
     }
@@ -333,8 +378,8 @@ const setupHeartScrollEffect = () => {
         if (introHeart) introHeart.style.animation = 'burnPulse 1.5s infinite alternate';
       }
     },
-    scale: isMobile ? 8 : 15,
-    y: isMobile ? 300 : 600,
+    scale: isMobile ? 6 : 12,
+    y: isMobile ? 250 : 500,
     opacity: 0,
     ease: "power1.in"
   });
@@ -351,12 +396,13 @@ const setupHeartScrollEffect = () => {
   });
 };
 
+// Force scroll to top
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
 }
 window.scrollTo(0, 0);
 
-// Interaction Logic
+// Interaction Logic (Sincronizado con Live Server)
 window.addEventListener('load', () => {
   const loader = document.getElementById('loader-overlay');
   const loaderBtn = document.querySelector('.loader-btn');
@@ -374,13 +420,15 @@ window.addEventListener('load', () => {
         musicToggle.querySelector('.music-icon').textContent = '🔊';
       }
     }).catch(err => {
-      console.log('Error jugando la música:', err);
+      console.log('Audio prevenido por políticas del navegador:', err);
     });
 
+    // Remueve Loader
     setTimeout(() => {
       loader.style.opacity = '0';
       loader.style.visibility = 'hidden';
 
+      // Arranca el contador de fechas de forma automática al entrar al entorno
       setTimeout(() => {
         ScrollTrigger.refresh();
         animateDateCounter();
@@ -394,6 +442,7 @@ window.addEventListener('load', () => {
     if (hint) hint.addEventListener('click', startExperience);
   }
 
+  // Music toggle
   if (musicToggle && bgMusic) {
     musicToggle.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -409,9 +458,7 @@ window.addEventListener('load', () => {
           musicToggle.classList.add('playing');
           musicToggle.querySelector('.music-icon').textContent = '🔊';
           isPlaying = true;
-        }).catch(err => {
-          console.log('Error de reproducción:', err);
-        });
+        }).catch(err => console.log(err));
       }
     });
   }

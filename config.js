@@ -14,7 +14,7 @@ const config = {
 
     // Mensajes personalizados
     loading: {
-        message: "¿Preparado?... tu novia es genial B)",
+        message: "¿Preparado?... tu novia es la másss genial, sin envidias paro B)",
         buttonText: "iendooooo",
         clickHint: "Pushale aki",
     },
