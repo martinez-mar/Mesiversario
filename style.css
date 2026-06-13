@@ -826,4 +826,47 @@ p {
   h1 {
     font-size: 1.8rem !important;
   }
+  /* ==========================================
+   FORZAR FONDO DEL UNIVERSO 3D (THREE.JS)
+   ========================================== */
+#canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* Lo manda al fondo de todo */
+  pointer-events: none; /* Deja que puedas clickear los botones de la página */
+  overflow: hidden;
+}
+
+#canvas-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+}
+/* ==========================================
+   FORZAR VISIBILIDAD DEL UNIVERSO NATIVO
+   ========================================== */
+body, #intro {
+  background: transparent !important; 
+}
+
+#canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2; 
+  background-color: #0a0614; /* Color base del espacio profundo */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#canvas-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
 }
