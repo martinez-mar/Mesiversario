@@ -3,11 +3,11 @@
 
 const config = {
     pageTitle: "Feliz mesiversario ❤️",
-    favicon: "assets/cabezon.jpeg",
+    favicon: "assets/favicon.svg",
 
     // Musica de fondo
     music: {
-        path: "thismagic.mp3",
+        path: "assets/thismagic.mp3",
         volume: 0.3,
         autoPlay: true
     },
